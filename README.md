@@ -26,7 +26,7 @@ To start training, download the dataset and run:
 python capsnet_bci.py
 ```
 
-The code was implemented based on a GPU-based Tensforflow 1.14, Keras 2.2.4 (!), MNE 0.18
+The code was implemented based on a GPU-based Tensforflow 1.14, Keras 2.2.4, MNE 0.18
 
 For any inquiries: contact @qasymjomart, or kasymmkk@gmail.com
 
