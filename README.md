@@ -22,9 +22,9 @@ The leave-one-subject-out (LOSO) mechanism was used: leave one subject as a test
 
 ### Setup
 To start training, download the dataset and run:
-'''python
+```python
 python capsnet_bci.py
-'''
+```
 
 For any inquiries: contact @qasymjomart, or kasymmkk@gmail.com
 
