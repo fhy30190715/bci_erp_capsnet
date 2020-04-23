@@ -20,5 +20,11 @@ http://moabb.neurotechx.com/docs/generated/moabb.datasets.BNCI2014009.html#moabb
 ### Model training and selection:
 The leave-one-subject-out (LOSO) mechanism was used: leave one subject as a test subject, and train by pooling the rest of the data. As for validation subject, the 10th subject is removed at the beginning
 
+### Setup
+To start training, download the dataset and run:
+'''
+python capsnet_bci.py
+'''
+
 For any inquiries: contact @qasymjomart, or kasymmkk@gmail.com
 
