@@ -15,55 +15,6 @@ from sklearn.model_selection import train_test_split
 
 #%%
 
-def data_pooler(dataset_name, subIndexTest):
-	'''
-		This function intakes a dataset with a certain name and imports it.
-		it eliminates subIndexTest-th subject as a test subject, then from the remaining ones,
-		it chooses one random validation subject, thus finally returning the normalized
-		train, val and test subjects.
-
-		Input: 
-		- dataset_name
-
-		Return:
-		- train_norm, val_subject_norm, test_subject_norm
-
-	'''
-
-	filename = dataset_name + '.pickle'
-	with open(filename, 'rb') as fh:
-		d1 = pickle.load(fh)
-
-	ss1 = []
-	for ii in range(len(d1)):
-		ss1.append(subject_specific([ii], d1, 'ALS'))
-
-	test_subject = []
-	print('Index of a test subject: ', subIndexTest)
-	test_subject.append(ss1[subIndexTest])
-	ss1 = np.delete(ss1, subIndexTest, axis=0)
-
-	no_of_val_subjects = 1
-	newRandArray = [[]]
-	while len(set(newRandArray[0])) != no_of_val_subjects: #ensure random generator generates distint numbers
-		newRandArray = np.random.randint(0, len(ss1), size=(1, no_of_val_subjects))
-	newRandArray[[0]] = 8
-	val_subject = []
-	print('Randomly picked val subject index: ', newRandArray[[0]])
-	val_subject.append(ss1[newRandArray[0][0]])
-	ss1 = np.delete(ss1, newRandArray[0][0], axis=0)
-
-	ss1_flattened = concatenate_array(ss1)
-	del ss1
-
-	x_all, y_all  = concatenate_dicts([ss1_flattened]) # pooled data
-	#del ss1_flattened, ss2_flattened, ss3_flattened
-	del ss1_flattened
-
-	train_norm, y_train, val_subject_norm, test_subject_norm, = normalization(x_all, y_all, test_subject[0], val_subject[0])
-	del x_all, y_all, test_subject, val_subject
-
-	return train_norm, y_train, val_subject_norm, test_subject_norm
 
 #%%
 def normalization(x_all, y_all, test_subjects, val_subjects):
