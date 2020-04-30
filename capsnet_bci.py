@@ -200,46 +200,7 @@ for ss in range(7,9,1):
     # x = MaxPooling2D((1, 2))(x)
     
     
-    x = Reshape((-1, conv[-1]))(x)
-    capsule = Capsule(16,2,3,False)(x)
-    # output = Lambda(lambda z: K.sqrt(K.sum(K.square(z), 2)))(capsule)
-    capsule = Flatten()(capsule)
-    capsule = Dropout(0.2)(capsule)
-    # capsule = Dense(32, activation = 'relu')(capsule)
-    capsule = Dense(dense, activation = 'relu')(capsule)
-    output = Dense(1, activation='sigmoid')(capsule)
-    model = Model(inputs=input_image, outputs=output)
-    
-    model.compile(loss='binary_crossentropy', optimizer=RMSprop(lr=lr), metrics=['acc'])
-    
-    
-    
-    train_gen = generator(x_train,
-    	              y_train, 
-    	              min_index=0,
-    	              max_index=None,
-    	              batch_size=batch_size,
-                      desired_size = shape,                 #************WARNING************
-    	              shuffle=True) #see what None does
-    
-    val_gen = generator(x_val,
-                        y_val,
-                        min_index=0,
-                        max_index=None,
-                        batch_size=batch_size,
-                        desired_size = shape,                   #************WARNING************
-                        shuffle=True)
-    
-    mcp_save = keras.callbacks.ModelCheckpoint("Test-subject-"+str(ss)+"_CapsNet_New_ERP_Best_model#"+str(epochs)+ ".h5",monitor='val_acc', verbose=0, 
-    			save_best_only=True, save_weights_only=False, mode='max', period=1)
-    
-    H = model.fit_generator(
-    			train_gen,
-    			steps_per_epoch=totalTrain // batch_size,
-    			validation_data=val_gen,
-    			validation_steps=totalVal // batch_size,
-    			epochs=epochs,
-    			callbacks = [mcp_save])
+  
     
     
     
